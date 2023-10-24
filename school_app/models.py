@@ -57,6 +57,7 @@ class SchoolBoard(models.Model):
     nome = models.CharField(max_length=100, null=False, blank=False)
     cargo = models.CharField(max_length=100, null=False, blank=False)
     escola = models.ForeignKey(School, on_delete=models.DO_NOTHING)
+    user = models.OneToOneField(CustomUser, blank=True, null=True, on_delete=models.CASCADE)
 
 
 class Teacher(models.Model):
@@ -66,6 +67,7 @@ class Teacher(models.Model):
     corouraca = models.CharField(max_length=100, choices = COR_CHOICES)
     escola = models.ForeignKey(School, on_delete=models.DO_NOTHING)
     disciplina = models.ManyToManyField('SchoolSubject', related_name='teacher')
+    user = models.OneToOneField(CustomUser, blank=True, null=True, on_delete=models.CASCADE)
 
     def calculate_age(self):
         today = date.today()
@@ -80,6 +82,7 @@ class Student(models.Model):
     corouraca = models.CharField(max_length=100, choices = COR_CHOICES)
     escola = models.ForeignKey(School, on_delete=models.DO_NOTHING)
     turma = models.ForeignKey('Class', on_delete=models.DO_NOTHING)
+    user = models.OneToOneField(CustomUser, blank=True, null=True, on_delete=models.CASCADE)
 
     def calculate_age(self):
         today = date.today()
